@@ -1,0 +1,20 @@
+<div class="backdrop" (click)="onCloseFavourites()"></div>
+<dialog open>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="onCloseFavourites()"
+    ></button>
+  </div>
+  @for (favProd of productData; track favProd.id) { @if(favProd.isLiked ===
+  true){
+
+  <app-favourite [favouriteProduct]="favProd" />
+  } }
+  <p class="actions">
+    <button type="button" (click)="onCloseFavourites()">Close</button>
+  </p>
+</dialog>

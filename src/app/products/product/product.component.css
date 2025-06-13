@@ -1,0 +1,29 @@
+.card {
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
+  width: 18rem;
+  overflow: hidden;
+}
+
+.card-title {
+  font-size: 2rem;
+}
+
+.fav {
+  background-color: rgb(250, 105, 129);
+  color: rgb(250, 105, 129);
+  /* fill: tomato; */
+}
+
+.card:hover {
+  transition: all 0.5s;
+  box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 20rem;
+  max-inline-size: 100%;
+}

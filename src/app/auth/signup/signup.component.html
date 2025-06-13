@@ -1,0 +1,68 @@
+<div class="backdrop" (click)="onCloseSignup()"></div>
+<dialog open>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="modal"
+    aria-label="Close"
+    (click)="onCloseSignup()"
+  ></button>
+  <h2>{{ authType }}</h2>
+  <form (ngSubmit)="onSubmitTask()">
+    <p>
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="enteredUsername"
+      />
+    </p>
+    <p>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="enteredEmail" />
+    </p>
+    <p>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="enteredPassword"
+      />
+    </p>
+    <p>
+      <label for="confirm-password">Confirm Password</label>
+      <input
+        type="password"
+        id="confirm-password"
+        name="confirm-password"
+        [(ngModel)]="enteredPassword"
+      />
+    </p>
+    <!-- <p>
+      <label for="summary">Summary</label>
+      <textarea
+        id="summary"
+        rows="5"
+        name="summary"
+        [(ngModel)]="enteredSummary"
+      ></textarea>
+    </p> -->
+
+    <!-- <p>
+      <label for="due-date">Due Date</label>
+      <input
+        type="date"
+        id="due-date"
+        name="due-date"
+        [(ngModel)]="enteredDate"
+      />
+    </p> -->
+
+    <p class="actions">
+      <button type="button" (click)="onCloseSignup()">Cancel</button>
+      <button type="submit">Signup</button>
+    </p>
+  </form>
+</dialog>

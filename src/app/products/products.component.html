@@ -1,0 +1,10 @@
+<section class="products-container">
+  @for (product of products; track product.id){
+  <app-product [product]="product" (select)="onSelectProduct($event)" />
+  } @if(isProductSelected){
+  <app-product-summary
+    [product]="selectedProduct"
+    (closeTask)="onCancelTask()"
+  />
+  }
+</section>

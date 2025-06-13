@@ -1,0 +1,30 @@
+<div class="backdrop" (click)="onCloseTask()"></div>
+<dialog open>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="modal"
+    aria-label="Close"
+    (click)="onCloseTask()"
+  ></button>
+  <img [src]="product?.imagePath" class="card-img-detail" />
+  <h2>{{ product?.name }}</h2>
+  <form>
+    <h3>₹{{ product?.price }}</h3>
+    <a style="border: none" (click)="onSelectFavourite()">
+      <i
+        class="fav material-icons"
+        style="font-size: 2rem"
+        [style.color]="product?.isLiked === true ? 'hotpink' : 'gray'"
+        >favorite</i
+      >
+    </a>
+
+    <p>
+      <label for="summary">{{ product?.description }}</label>
+    </p>
+
+    <a href="#" class="btn btn-warning">Buy now</a>
+    <a href="#" class="btn btn-outline-dark me">Add to cart</a>
+  </form>
+</dialog>
