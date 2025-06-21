@@ -1,14 +1,19 @@
-<div class="card">
+<a class="card" (click)="onProductClick()">
   <img
+    class="card-header"
     [src]="favouriteProduct.imagePath"
-    class="card-img-top"
     alt="product-image"
   />
   <div class="card-body">
-    <h5 class="card-title">{{ favouriteProduct.name }}</h5>
-    <h2>₹{{ favouriteProduct.price }}</h2>
+    <h2 class="card-title">{{ favouriteProduct.name }}</h2>
+    <h4>₹{{ favouriteProduct.price }}</h4>
     <p class="card-text">
       {{ favouriteProduct.description }}
     </p>
+    <a style="border: none" (click)="onRemoveFavourite()">
+      <i class="del material-icons" style="font-size: 2rem; color: red"
+        >delete</i
+      >
+    </a>
   </div>
-</div>
+</a>

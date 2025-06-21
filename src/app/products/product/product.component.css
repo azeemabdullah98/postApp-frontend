@@ -1,8 +1,8 @@
 .card {
   margin-top: 1.5rem;
   margin-left: 1.5rem;
-  width: 18rem;
   overflow: hidden;
+  display: flex;
 }
 
 .card-title {

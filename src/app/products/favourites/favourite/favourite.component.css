@@ -1,6 +1,17 @@
 .card {
   margin-top: 5rem;
+  text-decoration: none;
 }
-.card-img-top {
+
+.card:hover,
+.card:active {
+  cursor: pointer;
+}
+.card-header {
   width: 20%;
+}
+
+a:hover,
+a:active {
+  cursor: pointer;
 }

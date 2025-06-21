@@ -9,12 +9,17 @@
       (click)="onCloseFavourites()"
     ></button>
   </div>
-  @for (favProd of productData; track favProd.id) { @if(favProd.isLiked ===
-  true){
+  @for (favProd of productData; track favProd.id) { @if(favProd.isLiked){
 
-  <app-favourite [favouriteProduct]="favProd" />
+  <app-favourite
+    [favouriteProduct]="favProd"
+    (showProductDetails)="onShowProductDetail($event)"
+  />
   } }
   <p class="actions">
     <button type="button" (click)="onCloseFavourites()">Close</button>
   </p>
 </dialog>
+@if(this.isProductSelected){
+<app-product-summary [product]="selectedProduct" (closeTask)="onCancelTask()" />
+}

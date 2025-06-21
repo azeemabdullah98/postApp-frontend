@@ -41,7 +41,6 @@ label {
 a:hover,
 a:active .active {
   cursor: pointer;
-  color: rgb(255, 0, 0);
 }
 
 input,

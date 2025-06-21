@@ -74,11 +74,12 @@
               Sign-up
             </button>
             <a
-              class="btn btn-outline-light"
-              style="border: none"
+              class="btn btn-outline-light btn-favourite"
+              style="border-radius: 20%; height: 38px"
               (click)="onFavourite()"
             >
               <span class="material-symbols-outlined">favorite</span>
+              <div class="favourite-count">{{ likedCount }}</div>
             </a>
           </div>
         </div>
