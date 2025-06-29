@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../product/product.model';
-import { dummyProducts } from '../dummy-products';
+import { type Product } from '../product/product.model';
+import { Item } from '../product/item.model';
 
 @Component({
   selector: 'app-product-summary',
@@ -9,15 +9,20 @@ import { dummyProducts } from '../dummy-products';
   styleUrl: './product-summary.component.css',
 })
 export class ProductSummaryComponent {
-  @Input({ required: true }) product?: Product;
+  @Input({ required: true }) product?: Item;
+  @Input({ required: true }) isLoggedIn?: boolean;
   @Output() closeTask = new EventEmitter<void>();
 
   onCloseTask() {
     this.closeTask.emit();
   }
 
-  onSelectFavourite() {
-    this.product!.isLiked = !this.product!.isLiked;
-    console.log(this.product?.isLiked);
+  // onSelectFavourite() {
+  //   this.product!.isLiked = !this.product!.isLiked;
+  //   console.log(this.product?.isLiked);
+  // }
+
+  get imagePath() {
+    return this.product?.imagePath;
   }
 }

@@ -21,6 +21,8 @@ export class AppComponent {
   isLoginSelected = false;
   isSignupSelected = false;
   isFavouritesSelected = false;
+  isLoggedIn = false;
+  userLoginData: any;
   auth = '';
 
   onAuthSelected(auth: string) {
@@ -46,5 +48,11 @@ export class AppComponent {
       ? (this.isFavouritesSelected = false)
       : this.isFavouritesSelected;
   }
+
+  onLogin(user: any) {
+    this.userLoginData = user;
+    this.isLoggedIn = !this.isLoggedIn;
+  }
+
   title = 'postApp';
 }

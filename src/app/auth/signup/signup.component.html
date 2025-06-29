@@ -1,68 +1,126 @@
-<div class="backdrop" (click)="onCloseSignup()"></div>
-<dialog open>
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="modal"
-    aria-label="Close"
-    (click)="onCloseSignup()"
-  ></button>
-  <h2>{{ authType }}</h2>
-  <form (ngSubmit)="onSubmitTask()">
-    <p>
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        [(ngModel)]="enteredUsername"
-      />
-    </p>
-    <p>
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" [(ngModel)]="enteredEmail" />
-    </p>
-    <p>
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        [(ngModel)]="enteredPassword"
-      />
-    </p>
-    <p>
-      <label for="confirm-password">Confirm Password</label>
-      <input
-        type="password"
-        id="confirm-password"
-        name="confirm-password"
-        [(ngModel)]="enteredPassword"
-      />
-    </p>
-    <!-- <p>
-      <label for="summary">Summary</label>
-      <textarea
-        id="summary"
-        rows="5"
-        name="summary"
-        [(ngModel)]="enteredSummary"
-      ></textarea>
-    </p> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ authType }}</title>
+    <!-- Bootstrap 5 CDN -->
+    <style>
+      body {
+        background: #f0f2f5;
+      }
+      button.btn-warning {
+        background-color: #ffc107;
+        color: #212529 !important;
+        border: none;
+      }
 
-    <!-- <p>
-      <label for="due-date">Due Date</label>
-      <input
-        type="date"
-        id="due-date"
-        name="due-date"
-        [(ngModel)]="enteredDate"
-      />
-    </p> -->
+      button.btn-warning:hover {
+        background-color: #e0a800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="backdrop" id="backdrop" (click)="onCloseSignup()"></div>
+    <dialog open>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="onCloseSignup()"
+      ></button>
+      @if(message){
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+      </div>
+      }@else if (error) {
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+      }
+      <h3 class="text-center mb-4">{{ authType }}</h3>
+      <form (ngSubmit)="signup()">
+        <div class="form-floating mb-3">
+          <input
+            type="username"
+            class="form-control"
+            id="username"
+            name="username"
+            placeholder="name"
+            required
+            [(ngModel)]="user.username"
+          />
+          <label for="email">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="name@example.com"
+            required
+            [(ngModel)]="user.email"
+          />
+          <label for="email">Email</label>
+        </div>
 
-    <p class="actions">
-      <button type="button" (click)="onCloseSignup()">Cancel</button>
-      <button type="submit">Signup</button>
-    </p>
-  </form>
-</dialog>
+        <div class="form-floating mb-3">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+            [(ngModel)]="user.password"
+          />
+          <label for="password">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="password"
+            class="form-control"
+            id="confirm-password"
+            name="confirm-password"
+            placeholder="password"
+            required
+            [(ngModel)]="this.confirmPassword"
+          />
+          <label for="password">Confirm Password</label>
+        </div>
+        <div class="form-group mb-3">
+          <label>Roles</label>
+          <select
+            class="form-control"
+            name="role-dropdown"
+            [(ngModel)]="user.userRoles"
+            multiple
+          >
+            @for(role of roles; track role.id){
+            <option>{{ role.roleName }}</option>
+            }
+          </select>
+          <!-- <small
+            *ngIf="
+              signupForm.get('roles')?.touched &&
+              signupForm.get('roles')?.invalid
+            "
+            class="text-danger"
+          >
+            Please select at least one role.
+          </small> -->
+        </div>
+
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-warning me-0">Signup</button>
+        </div>
+        <div class="text-center mt-3">
+          <span>Already have an account? </span><a href="#">Login</a>
+        </div>
+      </form>
+    </dialog>
+    <!-- Bootstrap JS -->
+  </body>
+</html>

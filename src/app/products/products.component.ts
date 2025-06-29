@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProductComponent } from './product/product.component';
 import { dummyProducts } from './dummy-products';
 import { ProductSummaryComponent } from './product-summary/product-summary.component';
 import { Product } from './product/product.model';
 import { FavouritesComponent } from './favourites/favourites.component';
+import { ProductService } from './products.service';
+import { Item } from './product/item.model';
 
 @Component({
   selector: 'app-products',
@@ -12,12 +14,22 @@ import { FavouritesComponent } from './favourites/favourites.component';
   styleUrl: './products.component.css',
 })
 export class ProductsComponent {
+  @Input({ required: true }) isLoggedIn!: boolean;
   isProductSelected = false;
-  selectedProductId?: number;
-  products = dummyProducts;
+  selectedProductId?: string;
+  products: Item[] = [];
   auth = 'Favourites';
 
-  onSelectProduct(id: number) {
+  constructor(private productService: ProductService) {
+    this.productService.getProducts().subscribe({
+      next: (response) => {
+        this.products = response;
+        console.log(this.products);
+      },
+    });
+  }
+
+  onSelectProduct(id: string) {
     this.selectedProductId = id;
     this.isProductSelected = true;
   }
@@ -28,7 +40,7 @@ export class ProductsComponent {
 
   get selectedProduct() {
     return this.products.find(
-      (product) => product.id === this.selectedProductId
+      (product) => product.productId === this.selectedProductId
     );
   }
 }

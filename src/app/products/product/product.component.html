@@ -1,10 +1,14 @@
 <div class="card" (click)="onSelectProduct()">
-  <img [src]="product.imagePath" class="card-img-top" alt="product-image" />
+  <img
+    [src]="getImageUrl(product.imagePath)"
+    class="card-img-top"
+    alt="product-image"
+  />
   <div class="card-body">
-    <h5 class="card-title">{{ product.name }}</h5>
-    <h2>₹{{ product.price }}</h2>
+    <h5 class="card-title">{{ product.productName }}</h5>
+    <h2>₹{{ product.productPrice }}</h2>
     <p class="card-text">
-      {{ product.description }}
+      {{ product.productDescription }}
     </p>
   </div>
 </div>

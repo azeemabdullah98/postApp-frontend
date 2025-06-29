@@ -59,6 +59,30 @@
             />
           </form>
           <div class="text-end">
+            @if(isLoggedIn){
+            <button
+              type="button"
+              class="btn btn-warning me-2"
+              (click)="onLogin()"
+            >
+              Account
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger me-2"
+              (click)="onSignup()"
+            >
+              Logout
+            </button>
+            <a
+              class="btn btn-outline-light btn-favourite"
+              style="border-radius: 20%; height: 38px"
+              (click)="onFavourite()"
+            >
+              <span class="material-symbols-outlined">favorite</span>
+              <div class="favourite-count">{{ likedCount }}</div>
+            </a>
+            }@else {
             <button
               type="button"
               class="btn btn-outline-light me-2"
@@ -73,14 +97,7 @@
             >
               Sign-up
             </button>
-            <a
-              class="btn btn-outline-light btn-favourite"
-              style="border-radius: 20%; height: 38px"
-              (click)="onFavourite()"
-            >
-              <span class="material-symbols-outlined">favorite</span>
-              <div class="favourite-count">{{ likedCount }}</div>
-            </a>
+            }
           </div>
         </div>
       </div>

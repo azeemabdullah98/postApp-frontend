@@ -7,7 +7,7 @@
 .card:active {
   cursor: pointer;
 }
-.card-header {
+.card-img-top {
   width: 20%;
 }
 

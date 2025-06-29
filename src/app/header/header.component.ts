@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { dummyProducts } from '../products/dummy-products';
 
 @Component({
@@ -8,6 +8,7 @@ import { dummyProducts } from '../products/dummy-products';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  @Input() isLoggedIn!: boolean;
   @Output() auth = new EventEmitter<string>();
   isLoginSelected = true;
   authType = '';

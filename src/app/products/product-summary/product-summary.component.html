@@ -7,10 +7,11 @@
     aria-label="Close"
     (click)="onCloseTask()"
   ></button>
-  <img [src]="product?.imagePath" class="card-img-detail" />
-  <h2>{{ product?.name }}</h2>
+  <img [src]="imagePath" class="card-img-detail" />
+  <h2>{{ product?.productName }}</h2>
   <form>
-    <h3>₹{{ product?.price }}</h3>
+    <h3>₹{{ product?.productPrice }}</h3>
+    <!-- @if(isLoggedIn){
     <a style="border: none" (click)="onSelectFavourite()">
       <i
         class="fav material-icons"
@@ -19,9 +20,10 @@
         >favorite</i
       >
     </a>
+    } -->
 
     <p>
-      <label for="summary">{{ product?.description }}</label>
+      <label for="summary">{{ product?.productDescription }}</label>
     </p>
 
     <a href="#" class="btn btn-warning">Buy now</a>

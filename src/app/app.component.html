@@ -1,9 +1,12 @@
-<app-header (auth)="onAuthSelected($event)" />
+<app-header [isLoggedIn]="isLoggedIn" (auth)="onAuthSelected($event)" />
 <main>
-  <app-products />
+  <app-products [isLoggedIn]="isLoggedIn" />
   @if(isLoginSelected){
-
-  <app-login (closeLogin)="onCloseAuth()" [authType]="this.auth" />
+  <app-login
+    (onLoginSuccess)="onLogin($event)"
+    (closeLogin)="onCloseAuth()"
+    [authType]="this.auth"
+  />
   }@if(isSignupSelected) {
   <app-signup (closeSignup)="onCloseAuth()" [authType]="this.auth" />
   } @if(isFavouritesSelected) {

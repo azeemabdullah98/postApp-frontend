@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { dummyProducts } from '../dummy-products';
 import { ProductSummaryComponent } from '../product-summary/product-summary.component';
+import { Item } from '../product/item.model';
 
 @Component({
   selector: 'app-favourites',
@@ -12,15 +13,15 @@ import { ProductSummaryComponent } from '../product-summary/product-summary.comp
 export class FavouritesComponent {
   @Input({ required: true }) authType!: string;
   @Output() closeFavourites = new EventEmitter<void>();
-  productData = dummyProducts;
+  productData: Item[] = [];
   isProductSelected = false;
-  selectedProductId?: number;
+  selectedProductId?: string;
 
   onCloseFavourites() {
     this.closeFavourites.emit();
   }
 
-  onShowProductDetail(productId: number) {
+  onShowProductDetail(productId: string) {
     this.isProductSelected = !this.isProductSelected;
     this.selectedProductId = productId;
   }
@@ -31,7 +32,7 @@ export class FavouritesComponent {
 
   get selectedProduct() {
     return this.productData.find(
-      (product) => product.id === this.selectedProductId
+      (product) => product.productId === this.selectedProductId
     );
   }
 }
