@@ -14,12 +14,11 @@ export class AuthService {
   }
 
   login(user: any) {
-    console.log(user);
     return this.http.post(`${this.baseUrl}/login`, user);
   }
 
   update(user: any) {
-    return this.http.put(`${this.baseUrl}/edituser`, user);
+    return this.http.post(`${this.baseUrl}/edituser`, user);
   }
 
   getRoles() {

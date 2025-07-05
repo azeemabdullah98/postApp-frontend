@@ -23,7 +23,7 @@
 }
 
 .card-img-top {
-  object-fit: cover;
+  object-fit: contain;
   height: 20rem;
   max-inline-size: 100%;
 }

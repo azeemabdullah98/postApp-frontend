@@ -11,5 +11,9 @@
   <app-signup (closeSignup)="onCloseAuth()" [authType]="this.auth" />
   } @if(isFavouritesSelected) {
   <app-favourites (closeFavourites)="onCloseAuth()" [authType]="this.auth" />
+  } @if(isAddProductSelected){
+  <app-new-product [title]="this.auth" (closeAddProduct)="onCloseAuth()" />
+  }@if(isAccountInfoSelected){
+  <app-user-account [authType]="this.auth" (closeUserAccount)="onCloseAuth()" />
   }
 </main>

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { type Product } from '../product/product.model';
 import { Item } from '../product/item.model';
+import { ProductService } from '../products.service';
 
 @Component({
   selector: 'app-product-summary',
@@ -13,6 +14,8 @@ export class ProductSummaryComponent {
   @Input({ required: true }) isLoggedIn?: boolean;
   @Output() closeTask = new EventEmitter<void>();
 
+  constructor(private productService: ProductService) {}
+
   onCloseTask() {
     this.closeTask.emit();
   }
@@ -24,5 +27,10 @@ export class ProductSummaryComponent {
 
   get imagePath() {
     return this.product?.imagePath;
+  }
+
+  getImageUrl(filename: string): string {
+    console.log(this.productService.getImageUrl(filename));
+    return this.productService.getImageUrl(filename);
   }
 }

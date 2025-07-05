@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductComponent } from './product/product.component';
 import { dummyProducts } from './dummy-products';
 import { ProductSummaryComponent } from './product-summary/product-summary.component';
@@ -13,14 +13,16 @@ import { Item } from './product/item.model';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   @Input({ required: true }) isLoggedIn!: boolean;
   isProductSelected = false;
   selectedProductId?: string;
   products: Item[] = [];
   auth = 'Favourites';
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next: (response) => {
         this.products = response;
@@ -28,6 +30,10 @@ export class ProductsComponent {
       },
     });
   }
+
+  // getImageUrl(filename: string): string {
+  //   return this.productService.getImageUrl(filename);
+  // }
 
   onSelectProduct(id: string) {
     this.selectedProductId = id;

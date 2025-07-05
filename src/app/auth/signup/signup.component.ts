@@ -17,7 +17,7 @@ export class SignupComponent {
     username: '',
     email: '',
     password: '',
-    userRoles: [],
+    userRoles: [] as String[],
     active: true,
   };
   confirmPassword = '';
@@ -45,7 +45,6 @@ export class SignupComponent {
       this.error = 'Confirm password do not match the password';
       return;
     }
-
     this.authService.signup(this.user).subscribe({
       next: (response: any) => {
         this.message = response.message;
@@ -55,20 +54,26 @@ export class SignupComponent {
         this.confirmPassword = '';
         this.user.userRoles = [];
       },
-      error: (response) =>
-        (this.error =
-          response.error === null
-            ? 'Please provide valid username/email'
-            : response.error.message),
+      error: (response) => {
+        this.user.userRoles = [];
+        this.error = response.error.message.includes('validation')
+          ? 'Please provide valid email address'
+          : response.error.message;
+      },
     });
   }
 
-  // signup() {
-  //   this.authService.signup(this.user).subscribe({
-  //     next: (response: any) => {
-  //       console.log(response);
-  //     },
-  //     error: (error) => console.log(error.error),
-  //   });
-  // }
+  isSelected(role: Role) {
+    return this.user.userRoles.some((r) => r === role.roleName);
+  }
+
+  toggleRoleSelection(role: Role) {
+    if (this.isSelected(role)) {
+      this.user.userRoles = this.user.userRoles.filter(
+        (r) => r !== role.roleName
+      );
+    } else {
+      this.user.userRoles.push(role.roleName);
+    }
+  }
 }

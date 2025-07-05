@@ -17,13 +17,8 @@ export class ProductComponent {
     this.select.emit(this.product.productId);
   }
 
-  // get imagePath() {
-  //   console.log(this.product.imagePath);
-  //   return this.product.imagePath;
-  // }
-
-  getImageUrl(imagePath: string): string {
-    console.log(this.productService.getImageUrl(imagePath));
-    return this.productService.getImageUrl(imagePath);
+  getImageUrl(filename: string): string {
+    // console.log(this.productService.getImageUrl(filename));
+    return this.productService.getImageUrl(filename);
   }
 }

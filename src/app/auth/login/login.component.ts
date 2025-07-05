@@ -30,9 +30,6 @@ export class LoginComponent {
       next: (user: any) => {
         console.log('User logged in:', user);
         this.authService.setUser(user);
-        if (user.user_roles.includes('ROLE_ADMIN')) {
-          this.router.navigate(['/']);
-        }
         this.closeLogin.emit();
         this.onLoginSuccess.emit(user);
       },

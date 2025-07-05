@@ -7,7 +7,7 @@
     aria-label="Close"
     (click)="onCloseTask()"
   ></button>
-  <img [src]="imagePath" class="card-img-detail" />
+  <img [src]="getImageUrl(product!.imagePath)" class="card-img-detail" />
   <h2>{{ product?.productName }}</h2>
   <form>
     <h3>₹{{ product?.productPrice }}</h3>

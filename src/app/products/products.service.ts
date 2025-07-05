@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Item } from './product/item.model';
+import { Product } from './product/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -12,7 +13,11 @@ export class ProductService {
     return this.http.get<Item[]>(`${this.baseUrl}/products/product`);
   }
 
-  getImageUrl(imagePath: string): string {
-    return `${this.baseUrl}/products/image/${imagePath}`;
+  getImageUrl(filename: string): string {
+    return `${this.baseUrl}/products/image/${filename}`;
+  }
+
+  addProducts(product: FormData) {
+    return this.http.post(`${this.baseUrl}/products/product`, product);
   }
 }

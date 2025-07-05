@@ -24,8 +24,18 @@ export class HeaderComponent {
     this.auth.emit(this.authType);
   }
 
+  onAddProduct() {
+    this.authType = 'Add Product';
+    this.auth.emit(this.authType);
+  }
+
   onFavourite() {
     this.authType = 'Favourites';
+    this.auth.emit(this.authType);
+  }
+
+  onAccountInfo() {
+    this.authType = 'Account Info';
     this.auth.emit(this.authType);
   }
 
