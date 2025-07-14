@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from './product.model'; // Adjust the import path as necessary
-import { dummyProducts } from '../dummy-products';
+import { type Product } from './product.model'; // Adjust the import path as necessary
+import { Item } from './item.model';
+import { ProductService } from '../products.service';
 
 @Component({
   selector: 'app-product',
@@ -8,10 +9,15 @@ import { dummyProducts } from '../dummy-products';
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
-  @Input() product!: Product;
-  @Output() select = new EventEmitter<number>();
+  @Input() product!: Item;
+  @Output() select = new EventEmitter<string>();
 
+  constructor(private productService: ProductService) {}
   onSelectProduct() {
-    this.select.emit(this.product.id);
+    this.select.emit(this.product.productId);
+  }
+
+  getImageUrl(filename: string): string {
+    return this.productService.getImageUrl(filename);
   }
 }

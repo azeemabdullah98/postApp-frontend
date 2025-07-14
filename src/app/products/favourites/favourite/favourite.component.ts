@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Product } from '../../product/product.model';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { type Product } from '../../product/product.model';
+import { Item } from '../../product/item.model';
 
 @Component({
   selector: 'app-favourite',
@@ -8,5 +9,14 @@ import { Product } from '../../product/product.model';
   styleUrl: './favourite.component.css',
 })
 export class FavouriteComponent {
-  @Input({ required: true }) favouriteProduct!: Product;
+  @Input({ required: true }) favouriteProduct!: Item;
+  @Output() showProductDetails = new EventEmitter<string>();
+
+  // onRemoveFavourite() {
+  //   this.favouriteProduct.isLiked = false;
+  // }
+
+  onProductClick() {
+    this.showProductDetails.emit(this.favouriteProduct.productId);
+  }
 }

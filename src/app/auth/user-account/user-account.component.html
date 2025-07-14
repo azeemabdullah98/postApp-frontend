@@ -21,16 +21,16 @@
     </style>
   </head>
   <body>
-    <div class="backdrop" id="backdrop" (click)="onCloseSignup()"></div>
+    <div class="backdrop" (click)="onCloseAccountInfo()"></div>
     <dialog open>
       <button
         type="button"
         class="btn-close"
         data-bs-dismiss="modal"
         aria-label="Close"
-        (click)="onCloseSignup()"
+        (click)="onCloseAccountInfo()"
       ></button>
-      @if(message){
+      <!-- @if(message){
       <div class="alert alert-success" role="alert">
         {{ message }}
       </div>
@@ -38,9 +38,9 @@
       <div class="alert alert-danger" role="alert">
         {{ error }}
       </div>
-      }
+      } -->
       <h3 class="text-center mb-4">{{ authType }}</h3>
-      <form (ngSubmit)="signup()">
+      <form (ngSubmit)="updateUser()">
         <div class="form-floating mb-3">
           <input
             type="username"
@@ -55,6 +55,8 @@
         </div>
         <div class="form-floating mb-3">
           <input
+            readonly
+            style="background-color: #d6d9dc"
             type="email"
             class="form-control"
             id="email"
@@ -64,31 +66,6 @@
             [(ngModel)]="user.email"
           />
           <label for="email">Email</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="password"
-            placeholder="Password"
-            required
-            [(ngModel)]="user.password"
-          />
-          <label for="password">Password</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            class="form-control"
-            id="confirm-password"
-            name="confirm-password"
-            placeholder="password"
-            required
-            [(ngModel)]="this.confirmPassword"
-          />
-          <label for="password">Confirm Password</label>
         </div>
         <!-- <div class="form-group mb-3">
           <label>Roles</label>
@@ -119,10 +96,7 @@
         </div>
 
         <div class="d-grid mb-3">
-          <button type="submit" class="btn btn-warning me-0">Signup</button>
-        </div>
-        <div class="text-center mt-3">
-          <span>Already have an account? </span><a href="#">Login</a>
+          <button type="submit" class="btn btn-warning me-0">Update</button>
         </div>
       </form>
     </dialog>

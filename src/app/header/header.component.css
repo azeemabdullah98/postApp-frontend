@@ -15,3 +15,22 @@
   margin-left: -1.6rem;
   padding-right: 0.8rem;
 }
+
+.btn-favourite {
+  position: relative;
+}
+
+.favourite-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: rgb(200, 0, 0);
+  color: white;
+  font-family: Roboto, Arial;
+  font-size: 13px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 50px;
+}

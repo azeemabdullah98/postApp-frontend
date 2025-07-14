@@ -61,19 +61,10 @@ button {
   background-color: transparent;
 }
 
-button[type="button"] {
-  /* color: #bdadcf; */
-}
-
 .btn-close {
   position: absolute;
   top: 1.2rem;
   right: 0.5rem;
-}
-
-button[type="button"]:hover,
-button[type="button"]:active {
-  /* color: #d0c2e1; */
 }
 
 button[type="submit"] {

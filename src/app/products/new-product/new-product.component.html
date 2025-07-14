@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Product</title>
+    <!-- Bootstrap 5 CDN -->
+    <style>
+      body {
+        background: #f0f2f5;
+      }
+      button.btn-warning {
+        background-color: #ffc107;
+        color: #212529 !important;
+        border: none;
+      }
+
+      button.btn-warning:hover {
+        background-color: #e0a800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="backdrop" id="backdrop" (click)="onCloseAddProduct()"></div>
+    <dialog open>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="onCloseAddProduct()"
+      ></button>
+      @if (error) {
+      <div class="alert alert-danger" role="alert">{{ error }}</div>
+      }@if(response) {
+      <div class="alert alert-success" role="alert">
+        {{ response }}
+      </div>
+      }
+      <h3 class="text-center mb-4">Add Product</h3>
+      <form (ngSubmit)="onAddProduct()">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="productName"
+            name="productName"
+            placeholder="Stone Necklace..."
+            required
+            [(ngModel)]="this.product.productName"
+          />
+          <label for="productName">Product Name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="number"
+            class="form-control"
+            id="productPrice"
+            name="productPrice"
+            placeholder="productPrice"
+            required
+            [(ngModel)]="this.product.productPrice"
+          />
+          <label for="productPrice">Product Price</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <textarea
+            id="productDescription"
+            name="productDescription"
+            class="form-control"
+            rows="4"
+            cols="50"
+            [(ngModel)]="this.product.productDescription"
+          >
+          </textarea>
+          <label for="productDescription">Product Description</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="file"
+            class="form-control"
+            id="productImage"
+            name="productImage"
+            placeholder="productImage"
+            required
+            accept=".jpg,.jpeg,.png"
+            (change)="onFileSelected($event)"
+          />
+          <label for="productImage">Product Image</label>
+        </div>
+
+        <!-- 👇 Image Preview -->
+        @if(this.imagePreview){
+        <div>
+          <p><strong>Image Preview:</strong></p>
+          <img
+            [src]="this.imagePreview"
+            alt="Image Preview"
+            width="250"
+            style="margin-bottom: 10px"
+          />
+        </div>
+        }
+
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-warning me-0">
+            Add Product
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <!-- Bootstrap JS -->
+  </body>
+</html>
