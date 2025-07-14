@@ -6,6 +6,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { FavouritesComponent } from './products/favourites/favourites.component';
 import { NewProductComponent } from './products/new-product/new-product.component';
 import { UserAccountComponent } from './auth/user-account/user-account.component';
+import { Item } from './products/product/item.model';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,6 @@ import { UserAccountComponent } from './auth/user-account/user-account.component
     LoginComponent,
     SignupComponent,
     FavouritesComponent,
-    NewProductComponent,
     UserAccountComponent,
   ],
   templateUrl: './app.component.html',
@@ -48,8 +48,11 @@ export class AppComponent {
     this.auth === 'Account Info'
       ? (this.isAccountInfoSelected = true)
       : this.isAccountInfoSelected;
+    console.log(this.isAddProductSelected);
   }
-  onCloseAuth() {
+
+  onCloseAuth(event: string) {
+    this.auth = event;
     this.auth === 'Login'
       ? (this.isLoginSelected = false)
       : this.isLoginSelected;
@@ -70,10 +73,6 @@ export class AppComponent {
   onLogin(user: any) {
     this.userLoginData = user;
     this.isLoggedIn = !this.isLoggedIn;
-  }
-
-  onAddNewProduct() {
-    this.isAddProductSelected != this.isAddProductSelected;
   }
 
   title = 'postApp';

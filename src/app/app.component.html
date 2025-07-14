@@ -1,19 +1,27 @@
 <app-header [isLoggedIn]="isLoggedIn" (auth)="onAuthSelected($event)" />
 <main>
-  <app-products [isLoggedIn]="isLoggedIn" />
+  <app-products
+    [isLoggedIn]="isLoggedIn"
+    [isAddProduct]="isAddProductSelected"
+    (closeAddProduct)="onCloseAuth($event)"
+  />
   @if(isLoginSelected){
   <app-login
     (onLoginSuccess)="onLogin($event)"
-    (closeLogin)="onCloseAuth()"
+    (closeLogin)="onCloseAuth($event)"
     [authType]="this.auth"
   />
   }@if(isSignupSelected) {
-  <app-signup (closeSignup)="onCloseAuth()" [authType]="this.auth" />
+  <app-signup (closeSignup)="onCloseAuth($event)" [authType]="this.auth" />
   } @if(isFavouritesSelected) {
-  <app-favourites (closeFavourites)="onCloseAuth()" [authType]="this.auth" />
-  } @if(isAddProductSelected){
-  <app-new-product [title]="this.auth" (closeAddProduct)="onCloseAuth()" />
+  <app-favourites
+    (closeFavourites)="onCloseAuth($event)"
+    [authType]="this.auth"
+  />
   }@if(isAccountInfoSelected){
-  <app-user-account [authType]="this.auth" (closeUserAccount)="onCloseAuth()" />
+  <app-user-account
+    [authType]="this.auth"
+    (closeUserAccount)="onCloseAuth($event)"
+  />
   }
 </main>

@@ -1,24 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { ProductComponent } from './product/product.component';
-import { dummyProducts } from './dummy-products';
 import { ProductSummaryComponent } from './product-summary/product-summary.component';
-import { Product } from './product/product.model';
-import { FavouritesComponent } from './favourites/favourites.component';
 import { ProductService } from './products.service';
 import { Item } from './product/item.model';
+import { NewProductComponent } from './new-product/new-product.component';
 
 @Component({
   selector: 'app-products',
-  imports: [ProductComponent, ProductSummaryComponent],
+  imports: [ProductComponent, ProductSummaryComponent, NewProductComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
 export class ProductsComponent implements OnInit {
   @Input({ required: true }) isLoggedIn!: boolean;
+  @Input({ required: true }) isAddProduct!: boolean;
+  @Output() closeAddProduct = new EventEmitter<string>();
   isProductSelected = false;
   selectedProductId?: string;
   products: Item[] = [];
-  auth = 'Favourites';
 
   constructor(private productService: ProductService) {}
 
@@ -26,14 +25,10 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (response) => {
         this.products = response;
-        console.log(this.products);
+        // console.log(this.products);
       },
     });
   }
-
-  // getImageUrl(filename: string): string {
-  //   return this.productService.getImageUrl(filename);
-  // }
 
   onSelectProduct(id: string) {
     this.selectedProductId = id;
@@ -44,9 +39,21 @@ export class ProductsComponent implements OnInit {
     this.isProductSelected = false;
   }
 
+  onCloseNewProduct(event: string) {
+    this.closeAddProduct.emit(event);
+  }
+
   get selectedProduct() {
     return this.products.find(
       (product) => product.productId === this.selectedProductId
+    );
+  }
+
+  onDeleteProduct(productId: string) {
+    this.productService.onDeleteProduct(productId);
+    this.isProductSelected = false;
+    this.products = this.products.filter(
+      (product) => product.productId !== productId
     );
   }
 }

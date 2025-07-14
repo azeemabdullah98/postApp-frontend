@@ -18,7 +18,6 @@ export class ProductComponent {
   }
 
   getImageUrl(filename: string): string {
-    // console.log(this.productService.getImageUrl(filename));
     return this.productService.getImageUrl(filename);
   }
 }

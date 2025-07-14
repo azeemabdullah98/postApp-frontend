@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FavouriteComponent } from './favourite/favourite.component';
-import { dummyProducts } from '../dummy-products';
 import { ProductSummaryComponent } from '../product-summary/product-summary.component';
 import { Item } from '../product/item.model';
 
@@ -12,13 +11,13 @@ import { Item } from '../product/item.model';
 })
 export class FavouritesComponent {
   @Input({ required: true }) authType!: string;
-  @Output() closeFavourites = new EventEmitter<void>();
+  @Output() closeFavourites = new EventEmitter<string>();
   productData: Item[] = [];
   isProductSelected = false;
   selectedProductId?: string;
 
   onCloseFavourites() {
-    this.closeFavourites.emit();
+    this.closeFavourites.emit('Favourites');
   }
 
   onShowProductDetail(productId: string) {

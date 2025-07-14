@@ -85,6 +85,18 @@ button[type="submit"]:active {
   right: 0.5rem;
 }
 
+.delete-icon {
+  cursor: pointer;
+  color: red;
+  justify-content: center;
+  margin-left: 45px;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+}
+
 @media (min-width: 768px) {
   dialog {
     padding: 2rem;

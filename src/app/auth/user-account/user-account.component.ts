@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class UserAccountComponent {
   @Input({ required: true }) authType!: string;
-  @Output() closeUserAccount = new EventEmitter<void>();
+  @Output() closeUserAccount = new EventEmitter<string>();
   user = {
     username: '',
     email: '',
@@ -36,7 +36,7 @@ export class UserAccountComponent {
     this.user.email = '';
     this.user.username = '';
     this.user.userRoles = [];
-    this.closeUserAccount.emit();
+    this.closeUserAccount.emit('Account Info');
   }
   updateUser() {
     // console.log(this.user);

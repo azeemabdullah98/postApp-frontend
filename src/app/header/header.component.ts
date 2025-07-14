@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { dummyProducts } from '../products/dummy-products';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +11,7 @@ export class HeaderComponent {
   @Output() auth = new EventEmitter<string>();
   isLoginSelected = true;
   authType = '';
-  productData = dummyProducts;
+  // productData = dummyProducts;
 
   onSignup() {
     this.authType = 'Signup';
@@ -39,7 +38,7 @@ export class HeaderComponent {
     this.auth.emit(this.authType);
   }
 
-  get likedCount() {
-    return this.productData.filter((product) => product.isLiked).length;
-  }
+  // get likedCount() {
+  //   return this.productData.filter((product) => product.isLiked).length;
+  // }
 }

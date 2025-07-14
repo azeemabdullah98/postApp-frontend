@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../products.service';
+import { Item } from '../product/item.model';
 
 @Component({
   selector: 'app-new-product',
@@ -9,11 +10,12 @@ import { ProductService } from '../products.service';
   styleUrl: './new-product.component.css',
 })
 export class NewProductComponent {
-  @Input({ required: true }) title!: string;
-  @Output() closeAddProduct = new EventEmitter<void>();
+  @Input({ required: true }) products: Item[] = [];
+  @Output() closeAddProduct = new EventEmitter<string>();
   response: any;
   error: any;
   product = {
+    productId: '',
     productName: '',
     productDescription: '',
     productPrice: 0,
@@ -23,25 +25,6 @@ export class NewProductComponent {
   imagePreview: string | ArrayBuffer | null = null;
 
   constructor(private productService: ProductService) {}
-
-  onAddProduct() {
-    const formData = new FormData();
-    formData.append('productName', this.product.productName);
-    formData.append('productDescription', this.product.productDescription);
-    formData.append('productPrice', this.product.productPrice.toString());
-    formData.append('imageFile', this.selectedFile);
-
-    this.productService.addProducts(formData).subscribe({
-      next: (response: any) => {
-        this.response = response.message;
-        console.log(response);
-      },
-      error: (error) => {
-        this.error = error.error.message;
-        console.log(error);
-      },
-    });
-  }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -71,6 +54,7 @@ export class NewProductComponent {
       this.imagePreview = reader.result;
     };
     reader.readAsDataURL(file);
+    return this.imagePreview;
   }
 
   clearFileInput(event: any) {
@@ -79,7 +63,27 @@ export class NewProductComponent {
     event.target.value = ''; // Reset input
   }
 
+  onAddProduct() {
+    const formData = new FormData();
+    formData.append('productName', this.product.productName);
+    formData.append('productDescription', this.product.productDescription);
+    formData.append('productPrice', this.product.productPrice.toString());
+    formData.append('imageFile', this.selectedFile);
+
+    this.productService.addProducts(formData).subscribe({
+      next: (response: any) => {
+        alert(response.message);
+        this.products.unshift(response.product);
+        // console.log(response);
+        this.closeAddProduct.emit('Add Product');
+      },
+      error: (error) => {
+        alert(error.error.message);
+      },
+    });
+  }
+
   onCloseAddProduct() {
-    this.closeAddProduct.emit();
+    this.closeAddProduct.emit('Add Product');
   }
 }

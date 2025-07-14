@@ -12,7 +12,7 @@ import { Role } from '../role.model';
 })
 export class SignupComponent {
   @Input({ required: true }) authType!: string;
-  @Output() closeSignup = new EventEmitter<void>();
+  @Output() closeSignup = new EventEmitter<string>();
   user = {
     username: '',
     email: '',
@@ -37,7 +37,7 @@ export class SignupComponent {
   }
 
   onCloseSignup() {
-    this.closeSignup.emit();
+    this.closeSignup.emit('Signup');
   }
 
   signup() {

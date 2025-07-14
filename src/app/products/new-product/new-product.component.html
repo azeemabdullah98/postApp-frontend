@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>Add Product</title>
     <!-- Bootstrap 5 CDN -->
     <style>
       body {
@@ -32,12 +32,12 @@
       ></button>
       @if (error) {
       <div class="alert alert-danger" role="alert">{{ error }}</div>
-      }@else if(response) {
+      }@if(response) {
       <div class="alert alert-success" role="alert">
         {{ response }}
       </div>
       }
-      <h3 class="text-center mb-4">{{ title }}</h3>
+      <h3 class="text-center mb-4">Add Product</h3>
       <form (ngSubmit)="onAddProduct()">
         <div class="form-floating mb-3">
           <input
@@ -93,11 +93,11 @@
         </div>
 
         <!-- 👇 Image Preview -->
-        @if(imagePreview){
+        @if(this.imagePreview){
         <div>
           <p><strong>Image Preview:</strong></p>
           <img
-            [src]="imagePreview"
+            [src]="this.imagePreview"
             alt="Image Preview"
             width="250"
             style="margin-bottom: 10px"

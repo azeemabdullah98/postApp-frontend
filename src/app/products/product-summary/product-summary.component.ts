@@ -13,6 +13,7 @@ export class ProductSummaryComponent {
   @Input({ required: true }) product?: Item;
   @Input({ required: true }) isLoggedIn?: boolean;
   @Output() closeTask = new EventEmitter<void>();
+  @Output() deleteProduct = new EventEmitter<string>();
 
   constructor(private productService: ProductService) {}
 
@@ -20,17 +21,16 @@ export class ProductSummaryComponent {
     this.closeTask.emit();
   }
 
-  // onSelectFavourite() {
-  //   this.product!.isLiked = !this.product!.isLiked;
-  //   console.log(this.product?.isLiked);
-  // }
-
   get imagePath() {
     return this.product?.imagePath;
   }
 
   getImageUrl(filename: string): string {
-    console.log(this.productService.getImageUrl(filename));
+    // console.log(this.productService.getImageUrl(filename));
     return this.productService.getImageUrl(filename);
+  }
+
+  onDeleteProduct() {
+    this.deleteProduct.emit(this.product!.productId);
   }
 }

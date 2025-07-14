@@ -25,8 +25,12 @@
     <p>
       <label for="summary">{{ product?.productDescription }}</label>
     </p>
-
-    <a href="#" class="btn btn-warning">Buy now</a>
-    <a href="#" class="btn btn-outline-dark me">Add to cart</a>
+    <section class="btn-container">
+      <a href="#" class="btn btn-warning">Buy now</a>
+      <a href="#" class="btn btn-outline-dark me">Add to cart</a>
+      <i class="material-icons delete-icon" (click)="onDeleteProduct()"
+        >delete</i
+      >
+    </section>
   </form>
 </dialog>

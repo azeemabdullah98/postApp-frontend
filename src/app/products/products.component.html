@@ -6,6 +6,12 @@
     [product]="selectedProduct"
     (closeTask)="onCancelTask()"
     [isLoggedIn]="isLoggedIn"
+    (deleteProduct)="onDeleteProduct($event)"
+  />
+  } @if(isAddProduct){
+  <app-new-product
+    [products]="products"
+    (closeAddProduct)="onCloseNewProduct($event)"
   />
   }
 </section>

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   @Input({ required: true }) authType!: string;
-  @Output() closeLogin = new EventEmitter<void>();
+  @Output() closeLogin = new EventEmitter<string>();
   @Output() onLoginSuccess = new EventEmitter<any>();
   user = { username: '', password: '' };
   // enteredUsername = '';
@@ -30,7 +30,7 @@ export class LoginComponent {
       next: (user: any) => {
         console.log('User logged in:', user);
         this.authService.setUser(user);
-        this.closeLogin.emit();
+        this.closeLogin.emit('Login');
         this.onLoginSuccess.emit(user);
       },
       error: (error) => {
@@ -39,6 +39,6 @@ export class LoginComponent {
     });
   }
   onCloseLogin() {
-    this.closeLogin.emit();
+    this.closeLogin.emit('Login');
   }
 }
