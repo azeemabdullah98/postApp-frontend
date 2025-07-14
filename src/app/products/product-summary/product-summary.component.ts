@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { type Product } from '../product/product.model';
+import { CommonModule } from '@angular/common';
 import { Item } from '../product/item.model';
 import { ProductService } from '../products.service';
 
 @Component({
   selector: 'app-product-summary',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-summary.component.html',
   styleUrl: './product-summary.component.css',
 })
@@ -14,6 +14,7 @@ export class ProductSummaryComponent {
   @Input({ required: true }) isLoggedIn?: boolean;
   @Output() closeTask = new EventEmitter<void>();
   @Output() deleteProduct = new EventEmitter<string>();
+  showDeleteModal = false;
 
   constructor(private productService: ProductService) {}
 
@@ -32,5 +33,14 @@ export class ProductSummaryComponent {
 
   onDeleteProduct() {
     this.deleteProduct.emit(this.product!.productId);
+  }
+
+  openDeleteModal(product: Item) {
+    this.product = product;
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
   }
 }

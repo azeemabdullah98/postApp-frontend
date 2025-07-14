@@ -51,7 +51,7 @@ export class ProductsComponent implements OnInit {
 
   onDeleteProduct(productId: string) {
     this.productService.onDeleteProduct(productId);
-    this.isProductSelected = false;
+    this.onCancelTask();
     this.products = this.products.filter(
       (product) => product.productId !== productId
     );

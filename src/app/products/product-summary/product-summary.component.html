@@ -28,9 +28,57 @@
     <section class="btn-container">
       <a href="#" class="btn btn-warning">Buy now</a>
       <a href="#" class="btn btn-outline-dark me">Add to cart</a>
-      <i class="material-icons delete-icon" (click)="onDeleteProduct()"
+      <i class="material-icons delete-icon" (click)="openDeleteModal(product!)"
         >delete</i
       >
     </section>
   </form>
 </dialog>
+
+<!-- Delete Confirmation Modal -->
+<div
+  class="modal"
+  tabindex="-1"
+  [ngClass]="{ 'show d-block': showDeleteModal }"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeDeleteModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete
+          <strong>{{ product?.productName }}</strong
+          >?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark btn-secondary"
+          (click)="closeDeleteModal()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger btn-danger"
+          (click)="onDeleteProduct()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Backdrop -->
+@if(showDeleteModal){
+
+<div class="modal-backdrop fade show"></div>
+}
