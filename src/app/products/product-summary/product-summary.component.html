@@ -28,9 +28,12 @@
     <section class="btn-container">
       <a href="#" class="btn btn-warning">Buy now</a>
       <a href="#" class="btn btn-outline-dark me">Add to cart</a>
+      @if(currentUser !== null && currentUser.user_roles.includes('ROLE_ADMIN'))
+      {
       <i class="material-icons delete-icon" (click)="openDeleteModal(product!)"
         >delete</i
       >
+      }
     </section>
   </form>
 </dialog>
