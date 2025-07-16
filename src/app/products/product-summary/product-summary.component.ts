@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item } from '../product/item.model';
 import { ProductService } from '../products.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-product-summary',
@@ -16,7 +17,10 @@ export class ProductSummaryComponent {
   @Output() deleteProduct = new EventEmitter<string>();
   showDeleteModal = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService
+  ) {}
 
   onCloseTask() {
     this.closeTask.emit();
@@ -42,5 +46,9 @@ export class ProductSummaryComponent {
 
   closeDeleteModal() {
     this.showDeleteModal = false;
+  }
+
+  get currentUser() {
+    return this.authService.getUser();
   }
 }
