@@ -1,11 +1,7 @@
-.top-navbar {
-  display: flex;
-  align-items: center;
-}
-
 .text-end {
   display: flex;
   align-items: center;
+  gap: 0.8rem;
 }
 
 .company-logo {

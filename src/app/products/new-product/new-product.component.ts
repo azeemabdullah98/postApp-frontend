@@ -10,7 +10,7 @@ import { Item } from '../product/item.model';
   styleUrl: './new-product.component.css',
 })
 export class NewProductComponent {
-  @Input({ required: true }) products: Item[] = [];
+  @Input({ required: true }) products: Item[] | undefined = [];
   @Output() closeAddProduct = new EventEmitter<string>();
   response: any;
   error: any;
@@ -73,7 +73,7 @@ export class NewProductComponent {
     this.productService.addProducts(formData).subscribe({
       next: (response: any) => {
         alert(response.message);
-        this.products.unshift(response.product);
+        this.products?.unshift(response.product);
         // console.log(response);
         this.closeAddProduct.emit('Add Product');
       },

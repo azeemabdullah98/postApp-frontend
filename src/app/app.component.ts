@@ -30,6 +30,7 @@ export class AppComponent {
   isLoggedIn = false;
   userLoginData: any;
   auth = '';
+  searchProducts: Item[] = [];
 
   onAuthSelected(auth: string) {
     this.auth = auth;
@@ -75,5 +76,9 @@ export class AppComponent {
     this.isLoggedIn = !this.isLoggedIn;
   }
 
-  title = 'postApp';
+  onSearchProducts(products: Item[]) {
+    this.searchProducts = products;
+  }
+
+  // title = 'postApp';
 }

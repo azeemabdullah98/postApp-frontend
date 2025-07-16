@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Item } from './product/item.model';
 import { Product } from './product/product.model';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -36,5 +37,11 @@ export class ProductService {
         alert(error.error.message);
       },
     });
+  }
+
+  searchProducts(keyword: string): Observable<Item[]> {
+    return this.http.get<Item[]>(
+      `${this.baseUrl}/products/search?keyword=${keyword}`
+    );
   }
 }

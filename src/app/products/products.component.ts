@@ -14,10 +14,11 @@ import { NewProductComponent } from './new-product/new-product.component';
 export class ProductsComponent implements OnInit {
   @Input({ required: true }) isLoggedIn!: boolean;
   @Input({ required: true }) isAddProduct!: boolean;
+  @Input({ required: true }) products?: Item[];
   @Output() closeAddProduct = new EventEmitter<string>();
   isProductSelected = false;
   selectedProductId?: string;
-  products: Item[] = [];
+  // products: Item[] = [];
 
   constructor(private productService: ProductService) {}
 
@@ -44,7 +45,7 @@ export class ProductsComponent implements OnInit {
   }
 
   get selectedProduct() {
-    return this.products.find(
+    return this.products?.find(
       (product) => product.productId === this.selectedProductId
     );
   }
@@ -52,7 +53,7 @@ export class ProductsComponent implements OnInit {
   onDeleteProduct(productId: string) {
     this.productService.onDeleteProduct(productId);
     this.onCancelTask();
-    this.products = this.products.filter(
+    this.products = this.products?.filter(
       (product) => product.productId !== productId
     );
   }
