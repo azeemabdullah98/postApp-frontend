@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { ProductService } from '../products/products.service';
 import { FormsModule } from '@angular/forms';
 import { Item } from '../products/product/item.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,6 @@ import { Item } from '../products/product/item.model';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  @Input() isLoggedIn!: boolean;
   @Output() auth = new EventEmitter<string>();
   @Output() searchedProducts = new EventEmitter<Item[]>();
   isLoginSelected = true;
@@ -20,6 +20,8 @@ export class HeaderComponent {
   // productData = dummyProducts;
 
   constructor(private productService: ProductService) {}
+
+  private authService = inject(AuthService);
 
   onSignup() {
     this.authType = 'Signup';
@@ -56,5 +58,15 @@ export class HeaderComponent {
       this.products = data;
       this.searchedProducts.emit(this.products);
     });
+  }
+
+  onKeyDown($event: KeyboardEvent) {
+    if ($event.key === 'Enter') {
+      this.onSearch();
+    }
+  }
+
+  get isLoggedIn() {
+    return this.authService.getUser() !== null;
   }
 }

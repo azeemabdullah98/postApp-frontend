@@ -12,7 +12,6 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class ProductSummaryComponent {
   @Input({ required: true }) product?: Item;
-  @Input({ required: true }) isLoggedIn?: boolean;
   @Output() closeTask = new EventEmitter<void>();
   @Output() deleteProduct = new EventEmitter<string>();
   showDeleteModal = false;

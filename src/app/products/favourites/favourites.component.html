@@ -21,9 +21,5 @@
   </p>
 </dialog>
 @if(this.isProductSelected){
-<app-product-summary
-  [isLoggedIn]=""
-  [product]="selectedProduct"
-  (closeTask)="onCancelTask()"
-/>
+<app-product-summary [product]="selectedProduct" (closeTask)="onCancelTask()" />
 }

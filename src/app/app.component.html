@@ -1,11 +1,9 @@
 <app-header
-  [isLoggedIn]="isLoggedIn"
   (auth)="onAuthSelected($event)"
   (searchedProducts)="onSearchProducts($event)"
 />
 <main>
   <app-products
-    [isLoggedIn]="isLoggedIn"
     [isAddProduct]="isAddProductSelected"
     (closeAddProduct)="onCloseAuth($event)"
     [products]="searchProducts"

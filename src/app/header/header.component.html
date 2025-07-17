@@ -58,6 +58,7 @@
               placeholder="Search product..."
               aria-label="Search"
               name="productSearch"
+              (keydown)="onKeyDown($event)"
             />
           </form>
           <div class="text-end">

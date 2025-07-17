@@ -12,7 +12,6 @@ import { NewProductComponent } from './new-product/new-product.component';
   styleUrl: './products.component.css',
 })
 export class ProductsComponent implements OnInit {
-  @Input({ required: true }) isLoggedIn!: boolean;
   @Input({ required: true }) isAddProduct!: boolean;
   @Input({ required: true }) products?: Item[];
   @Output() closeAddProduct = new EventEmitter<string>();

@@ -27,7 +27,6 @@ export class AppComponent {
   isFavouritesSelected = false;
   isAddProductSelected = false;
   isAccountInfoSelected = false;
-  isLoggedIn = false;
   userLoginData: any;
   auth = '';
   searchProducts: Item[] = [];
@@ -73,7 +72,6 @@ export class AppComponent {
 
   onLogin(user: any) {
     this.userLoginData = user;
-    this.isLoggedIn = !this.isLoggedIn;
   }
 
   onSearchProducts(products: Item[]) {
