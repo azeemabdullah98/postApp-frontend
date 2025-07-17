@@ -1,3 +1,15 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ProductsComponent } from './products/products.component';
+import { NgModule } from '@angular/core';
+import { NotFoundComponent } from './not-found/not-found.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  //   { path: 'register', component: SignupComponent },
+  //   { path: 'login', component: LoginComponent },
+  //   { path: '', component: ProductsComponent },
+  { path: '**', component: NotFoundComponent },
+];
+
+export class AppRoutingModule {}
