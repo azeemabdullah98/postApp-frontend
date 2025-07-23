@@ -3,10 +3,11 @@ import { ProductService } from '../products/products.service';
 import { FormsModule } from '@angular/forms';
 import { Item } from '../products/product/item.model';
 import { AuthService } from '../auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -17,6 +18,7 @@ export class HeaderComponent {
   authType = '';
   keyword = '';
   products: Item[] = [];
+  showLogoutModal = false;
   // productData = dummyProducts;
 
   constructor(private productService: ProductService) {}
@@ -66,7 +68,23 @@ export class HeaderComponent {
     }
   }
 
+  onLogout() {
+    // console.log('logout clicked');
+    this.authService.setUser(null);
+    localStorage.removeItem('userData');
+    localStorage.removeItem('userProductData');
+    this.closeLogoutModal();
+  }
+
   get isLoggedIn() {
     return this.authService.getUser() !== null;
+  }
+
+  openLogoutModal() {
+    this.showLogoutModal = true;
+  }
+
+  closeLogoutModal() {
+    this.showLogoutModal = false;
   }
 }

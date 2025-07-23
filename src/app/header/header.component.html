@@ -83,7 +83,7 @@
             <button
               type="button"
               class="btn btn-danger me-2"
-              (click)="onSignup()"
+              (click)="openLogoutModal()"
             >
               Logout
             </button>
@@ -116,4 +116,50 @@
       </div>
     </header>
   </body>
+  <!-- Delete Confirmation Modal -->
+  <div
+    class="modal"
+    tabindex="-1"
+    [ngClass]="{ 'show d-block': showLogoutModal }"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Delete</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeLogoutModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to
+            <strong>logout</strong>?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-dark btn-secondary"
+            (click)="closeLogoutModal()"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline btn-danger"
+            (click)="onLogout()"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Backdrop -->
+  @if(showLogoutModal){
+
+  <div class="modal-backdrop fade show"></div>
+  }
 </html>

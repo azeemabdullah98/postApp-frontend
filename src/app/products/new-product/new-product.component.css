@@ -84,3 +84,16 @@ button[type="submit"]:active {
     padding: 2rem;
   }
 }
+
+body {
+  background: #f0f2f5;
+}
+button.btn-warning {
+  background-color: #ffc107;
+  color: #212529 !important;
+  border: none;
+}
+
+button.btn-warning:hover {
+  background-color: #e0a800;
+}

@@ -1,11 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FavouriteComponent } from './favourite/favourite.component';
-import { ProductSummaryComponent } from '../product-summary/product-summary.component';
 import { Item } from '../product/item.model';
 
 @Component({
   selector: 'app-favourites',
-  imports: [FavouriteComponent, ProductSummaryComponent],
+  imports: [FavouriteComponent],
   templateUrl: './favourites.component.html',
   styleUrl: './favourites.component.css',
 })

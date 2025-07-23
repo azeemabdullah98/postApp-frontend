@@ -23,6 +23,7 @@ export class UserAccountComponent {
 
   ngOnInit() {
     const userData = this.authService.getUser();
+    console.log('userData from local storage', userData);
     this.user.username = userData.username;
     this.user.email = userData.email;
     this.user.userRoles = userData.user_roles;
@@ -39,7 +40,6 @@ export class UserAccountComponent {
     this.closeUserAccount.emit('Account Info');
   }
   updateUser() {
-    // console.log(this.user);
     this.userRole !== '' ? this.user.userRoles.push(this.userRole) : null;
     this.authService.update(this.user).subscribe({
       next: (response) => {
@@ -48,7 +48,6 @@ export class UserAccountComponent {
         alert('User updated successfully');
       },
       error: (error) => {
-        // console.log(error.error);
         alert(error.error);
       },
     });

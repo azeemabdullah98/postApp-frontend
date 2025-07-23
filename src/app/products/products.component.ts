@@ -4,6 +4,8 @@ import { ProductSummaryComponent } from './product-summary/product-summary.compo
 import { ProductService } from './products.service';
 import { Item } from './product/item.model';
 import { NewProductComponent } from './new-product/new-product.component';
+import { UserProductsService } from './favourites/user-products.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +21,11 @@ export class ProductsComponent implements OnInit {
   selectedProductId?: string;
   // products: Item[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private authService: AuthService,
+    private productService: ProductService,
+    private userProductsService: UserProductsService
+  ) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({

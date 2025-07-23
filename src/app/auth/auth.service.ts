@@ -7,7 +7,12 @@ export class AuthService {
   private baseUrl = 'http://localhost:8888';
   private currentUser: any = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const user = localStorage.getItem('userData');
+    if (user) {
+      this.currentUser = JSON.parse(user);
+    }
+  }
 
   signup(user: any) {
     return this.http.post(`${this.baseUrl}/register`, user);
@@ -31,6 +36,7 @@ export class AuthService {
 
   setUser(user: any) {
     this.currentUser = user;
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   getUser() {
