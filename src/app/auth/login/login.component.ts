@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { UserProductsService } from '../../products/favourites/user-products.service';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,16 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   @Input({ required: true }) authType!: string;
   @Output() closeLogin = new EventEmitter<string>();
-  @Output() onLoginSuccess = new EventEmitter<any>();
   user = { username: '', password: '' };
   // enteredUsername = '';
   // enteredPassword = '';
   error = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private userProductsService: UserProductsService
+  ) {}
 
   onLogin() {
     if (this.user.username === '' || this.user.password === '') {
@@ -30,8 +34,8 @@ export class LoginComponent {
       next: (user: any) => {
         console.log('User logged in:', user);
         this.authService.setUser(user);
+        this.getUserProducts(user.id);
         this.closeLogin.emit('Login');
-        this.onLoginSuccess.emit(user);
       },
       error: (error) => {
         this.error = error.error.message;
@@ -40,5 +44,15 @@ export class LoginComponent {
   }
   onCloseLogin() {
     this.closeLogin.emit('Login');
+  }
+
+  getUserProducts(id: number) {
+    this.userProductsService.getUserProducts(id).subscribe({
+      next: (response: any) => {
+        this.userProductsService.setUserProduct(response);
+        localStorage.setItem('userProductData', JSON.stringify(response));
+        console.log('User products:', response);
+      },
+    });
   }
 }

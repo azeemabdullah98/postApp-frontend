@@ -9,11 +9,7 @@
     [products]="searchProducts"
   />
   @if(isLoginSelected){
-  <app-login
-    (onLoginSuccess)="onLogin($event)"
-    (closeLogin)="onCloseAuth($event)"
-    [authType]="this.auth"
-  />
+  <app-login (closeLogin)="onCloseAuth($event)" [authType]="this.auth" />
   }@if(isSignupSelected) {
   <app-signup (closeSignup)="onCloseAuth($event)" [authType]="this.auth" />
   } @if(isFavouritesSelected) {

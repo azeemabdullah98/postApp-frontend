@@ -27,7 +27,6 @@ export class AppComponent {
   isFavouritesSelected = false;
   isAddProductSelected = false;
   isAccountInfoSelected = false;
-  userLoginData: any;
   auth = '';
   searchProducts: Item[] = [];
 
@@ -71,12 +70,10 @@ export class AppComponent {
   }
 
   onLogin(user: any) {
-    this.userLoginData = user;
+    // this.userLoginData = user;
   }
 
   onSearchProducts(products: Item[]) {
     this.searchProducts = products;
   }
-
-  // title = 'postApp';
 }

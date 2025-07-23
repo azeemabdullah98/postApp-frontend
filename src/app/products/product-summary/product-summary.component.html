@@ -11,16 +11,16 @@
   <h2>{{ product?.productName }}</h2>
   <form>
     <h3>₹{{ product?.productPrice }}</h3>
-    <!-- @if(isLoggedIn){
+    @if(this.currentUser !== null){
     <a style="border: none" (click)="onSelectFavourite()">
       <i
         class="fav material-icons"
         style="font-size: 2rem"
-        [style.color]="product?.isLiked === true ? 'hotpink' : 'gray'"
+        [style.color]="this.favourites === true ? 'hotpink' : 'gray'"
         >favorite</i
       >
     </a>
-    } -->
+    }
 
     <p>
       <label for="summary">{{ product?.productDescription }}</label>
