@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Item } from '../products/product/item.model';
 import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { UserProductsService } from '../products/favourites/user-products.service';
 
 @Component({
   selector: 'app-header',
@@ -18,12 +19,14 @@ export class HeaderComponent {
   authType = '';
   keyword = '';
   products: Item[] = [];
+  favProductsSize: number | undefined = 0;
   showLogoutModal = false;
   // productData = dummyProducts;
 
   constructor(private productService: ProductService) {}
 
   private authService = inject(AuthService);
+  private userProductService = inject(UserProductsService);
 
   onSignup() {
     this.authType = 'Signup';

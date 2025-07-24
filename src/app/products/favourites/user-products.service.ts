@@ -9,11 +9,18 @@ export class UserProductsService {
   constructor(private http: HttpClient) {}
 
   addUserProduct(userId: number, productId: string) {
-    const userProduct = new HttpParams()
-      .set('userId', userId)
-      .set('productId', productId);
-    return this.http.post(`${this.baseUrl}/userproducts/userproduct`, {
-      userProduct,
+    return this.http.post(`${this.baseUrl}/userproducts/userproduct`, null, {
+      params: new HttpParams()
+        .set('userId', userId)
+        .set('productId', productId),
+    });
+  }
+
+  removeUserProduct(userId: number, productId: string) {
+    return this.http.delete(`${this.baseUrl}/userproducts/userproduct`, {
+      params: new HttpParams()
+        .set('userId', userId)
+        .set('productId', productId),
     });
   }
 

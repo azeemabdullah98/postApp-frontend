@@ -17,6 +17,7 @@ export class ProductSummaryComponent implements OnInit {
   @Output() deleteProduct = new EventEmitter<string>();
   showDeleteModal = false;
   favourites = false;
+  // userProducts: any;
 
   constructor(
     private productService: ProductService,
@@ -75,19 +76,54 @@ export class ProductSummaryComponent implements OnInit {
   }
 
   onSelectFavourite() {
-    console.log(this.currentUser.id);
-    console.log(this.product!.productId);
-    this.userProductsService
-      .addUserProduct(this.currentUser.id, this.product!.productId)
-      .subscribe({
-        next: (response) => {
-          console.log('Product added to favourites:', response);
-          alert('Product added to favourites');
-        },
-        error: (error) => {
-          console.error('Error adding product to favourites:', error);
-        },
-      });
+    // console.log(this.favourites);
+    this.favourites === true
+      ? this.userProductsService
+          .removeUserProduct(this.currentUser.id, this.product!.productId)
+          .subscribe({
+            complete: () => {
+              this.updateLocalStorage();
+            },
+            next: (response) => {
+              console.log('Product removed from favourites:', response);
+              alert('Product removed from favourites');
+            },
+            error: (error) => {
+              console.error('Error removing product from favourites:', error);
+              alert('Error removing product from favourites');
+            },
+          })
+      : this.userProductsService
+          .addUserProduct(this.currentUser.id, this.product!.productId)
+          .subscribe({
+            next: (response) => {
+              console.log('Product added to favourites:', response);
+              alert('Product added to favourites');
+            },
+            error: (error) => {
+              console.error('Error adding product to favourites:', error);
+              alert('Error adding product to favourites');
+            },
+            complete: () => {
+              this.updateLocalStorage();
+            },
+          });
     this.favourites = !this.favourites;
+  }
+
+  updateLocalStorage() {
+    localStorage.removeItem('userProductData');
+    this.userProductsService.getUserProducts(this.currentUser.id).subscribe({
+      complete: () => {
+        localStorage.setItem(
+          'userProductData',
+          JSON.stringify(this.userProductsService.getUserProduct())
+        );
+      },
+      error: () => {},
+      next: (res: any) => {
+        this.userProductsService.setUserProduct(res);
+      },
+    });
   }
 }
