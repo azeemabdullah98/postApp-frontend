@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Role } from '../role.model';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-account',
@@ -11,7 +12,6 @@ import { AuthService } from '../auth.service';
 })
 export class UserAccountComponent {
   @Input({ required: true }) authType!: string;
-  @Output() closeUserAccount = new EventEmitter<string>();
   user = {
     username: '',
     email: '',
@@ -19,7 +19,7 @@ export class UserAccountComponent {
   };
   roles: Role[] = [];
   userRole: String = '';
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     const userData = this.authService.getUser();
@@ -37,7 +37,7 @@ export class UserAccountComponent {
     this.user.email = '';
     this.user.username = '';
     this.user.userRoles = [];
-    this.closeUserAccount.emit('Account Info');
+    this.router.navigateByUrl('/');
   }
   updateUser() {
     this.userRole !== '' ? this.user.userRoles.push(this.userRole) : null;

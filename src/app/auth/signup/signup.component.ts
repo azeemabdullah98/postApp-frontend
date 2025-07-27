@@ -12,7 +12,6 @@ import { Role } from '../role.model';
 })
 export class SignupComponent {
   @Input({ required: true }) authType!: string;
-  @Output() closeSignup = new EventEmitter<string>();
   user = {
     username: '',
     email: '',
@@ -37,7 +36,7 @@ export class SignupComponent {
   }
 
   onCloseSignup() {
-    this.closeSignup.emit('Signup');
+    this.router.navigateByUrl('/');
   }
 
   signup() {

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../products.service';
 import { Item } from '../product/item.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-product',
@@ -11,7 +12,6 @@ import { Item } from '../product/item.model';
 })
 export class NewProductComponent {
   @Input({ required: true }) products: Item[] | undefined = [];
-  @Output() closeAddProduct = new EventEmitter<string>();
   response: any;
   error: any;
   product = {
@@ -24,7 +24,7 @@ export class NewProductComponent {
   selectedFile!: File;
   imagePreview: string | ArrayBuffer | null = null;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -75,7 +75,7 @@ export class NewProductComponent {
         alert(response.message);
         this.products?.unshift(response.product);
         // console.log(response);
-        this.closeAddProduct.emit('Add Product');
+        this.router.navigateByUrl('/');
       },
       error: (error) => {
         alert(error.error.message);
@@ -84,6 +84,6 @@ export class NewProductComponent {
   }
 
   onCloseAddProduct() {
-    this.closeAddProduct.emit('Add Product');
+    this.router.navigateByUrl('/');
   }
 }

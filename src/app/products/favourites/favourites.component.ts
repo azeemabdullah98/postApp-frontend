@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { Item } from '../product/item.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favourites',
@@ -9,14 +10,14 @@ import { Item } from '../product/item.model';
   styleUrl: './favourites.component.css',
 })
 export class FavouritesComponent {
-  @Input({ required: true }) authType!: string;
-  @Output() closeFavourites = new EventEmitter<string>();
   productData: Item[] = [];
   isProductSelected = false;
   selectedProductId?: string;
 
+  constructor(private router: Router) {}
+
   onCloseFavourites() {
-    this.closeFavourites.emit('Favourites');
+    this.router.navigateByUrl('/');
   }
 
   onShowProductDetail(productId: string) {

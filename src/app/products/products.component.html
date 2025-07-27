@@ -8,9 +8,6 @@
     (deleteProduct)="onDeleteProduct($event)"
   />
   } @if(isAddProduct){
-  <app-new-product
-    [products]="products"
-    (closeAddProduct)="onCloseNewProduct($event)"
-  />
+  <app-new-product [products]="products" />
   }
 </section>

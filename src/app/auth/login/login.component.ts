@@ -12,7 +12,6 @@ import { UserProductsService } from '../../products/favourites/user-products.ser
 })
 export class LoginComponent {
   @Input({ required: true }) authType!: string;
-  @Output() closeLogin = new EventEmitter<string>();
   user = { username: '', password: '' };
   // enteredUsername = '';
   // enteredPassword = '';
@@ -35,7 +34,7 @@ export class LoginComponent {
         console.log('User logged in:', user);
         this.authService.setUser(user);
         this.getUserProducts(user.id);
-        this.closeLogin.emit('Login');
+        this.router.navigateByUrl('/');
       },
       error: (error) => {
         this.error = error.error.message;
@@ -43,7 +42,7 @@ export class LoginComponent {
     });
   }
   onCloseLogin() {
-    this.closeLogin.emit('Login');
+    this.router.navigateByUrl('/');
   }
 
   getUserProducts(id: number) {

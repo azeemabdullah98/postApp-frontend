@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { type Product } from './product.model'; // Adjust the import path as necessary
 import { Item } from './item.model';
 import { ProductService } from '../products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -10,11 +11,13 @@ import { ProductService } from '../products.service';
 })
 export class ProductComponent {
   @Input() product!: Item;
-  @Output() select = new EventEmitter<string>();
+  @Output() select = new EventEmitter<Item>();
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
   onSelectProduct() {
-    this.select.emit(this.product.productId);
+    console.log(this.product);
+    this.select.emit(this.product);
+    // this.router.navigate(['/products', this.product.productId]);
   }
 
   getImageUrl(filename: string): string {

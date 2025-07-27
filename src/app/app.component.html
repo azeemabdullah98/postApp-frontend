@@ -1,9 +1,6 @@
-<app-header
-  (auth)="onAuthSelected($event)"
-  (searchedProducts)="onSearchProducts($event)"
-/>
+<app-header (searchedProducts)="onSearchProducts($event)" />
 <main>
-  <app-products
+  <!-- <app-products
     [isAddProduct]="isAddProductSelected"
     (closeAddProduct)="onCloseAuth($event)"
     [products]="searchProducts"
@@ -22,5 +19,6 @@
     [authType]="this.auth"
     (closeUserAccount)="onCloseAuth($event)"
   />
-  }
+  } -->
+  <router-outlet></router-outlet>
 </main>

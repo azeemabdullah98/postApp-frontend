@@ -4,6 +4,7 @@ import { Item } from '../product/item.model';
 import { ProductService } from '../products.service';
 import { AuthService } from '../../auth/auth.service';
 import { UserProductsService } from '../favourites/user-products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-summary',
@@ -13,8 +14,8 @@ import { UserProductsService } from '../favourites/user-products.service';
 })
 export class ProductSummaryComponent implements OnInit {
   @Input({ required: true }) product?: Item;
-  @Output() closeTask = new EventEmitter<void>();
   @Output() deleteProduct = new EventEmitter<string>();
+  @Output() closeTask = new EventEmitter<void>();
   showDeleteModal = false;
   favourites = false;
   // userProducts: any;
@@ -22,7 +23,8 @@ export class ProductSummaryComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private authService: AuthService,
-    private userProductsService: UserProductsService
+    private userProductsService: UserProductsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -34,10 +36,12 @@ export class ProductSummaryComponent implements OnInit {
     this.getFavourites();
     // console.log('favourites', this.favourites);
     // console.log(this.userProductsService.getUserProduct());
+    // console.log(this.product);
   }
 
   onCloseTask() {
     this.closeTask.emit();
+    // this.router.navigateByUrl('/home');
   }
 
   get imagePath() {

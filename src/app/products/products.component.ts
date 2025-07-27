@@ -6,6 +6,7 @@ import { Item } from './product/item.model';
 import { NewProductComponent } from './new-product/new-product.component';
 import { UserProductsService } from './favourites/user-products.service';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -18,13 +19,14 @@ export class ProductsComponent implements OnInit {
   @Input({ required: true }) products?: Item[];
   @Output() closeAddProduct = new EventEmitter<string>();
   isProductSelected = false;
-  selectedProductId?: string;
+  selectedProduct?: Item;
   // products: Item[] = [];
 
   constructor(
     private authService: AuthService,
     private productService: ProductService,
-    private userProductsService: UserProductsService
+    private userProductsService: UserProductsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -36,24 +38,26 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  onSelectProduct(id: string) {
-    this.selectedProductId = id;
+  onSelectProduct(product: Item) {
+    this.selectedProduct = product;
     this.isProductSelected = true;
+    // this.router.navigate(['/products', product.productId]);
   }
 
   onCancelTask() {
     this.isProductSelected = false;
+    this.router.navigate(['/']);
   }
 
   onCloseNewProduct(event: string) {
     this.closeAddProduct.emit(event);
   }
 
-  get selectedProduct() {
-    return this.products?.find(
-      (product) => product.productId === this.selectedProductId
-    );
-  }
+  // get selectedProduct() {
+  //   return this.products?.find(
+  //     (product) => product.productId === this.selectedProductId
+  //   );
+  // }
 
   onDeleteProduct(productId: string) {
     this.productService.onDeleteProduct(productId);
