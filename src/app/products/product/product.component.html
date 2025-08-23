@@ -1,16 +1,16 @@
 <div class="card" (click)="onSelectProduct()">
   <img
-    [src]="getImageUrl(product.imagePath)"
+    [src]="getImageUrl(product?.imagePath)"
     class="card-img-top"
     alt="product-image"
     loading="eager"
     decoding="async"
   />
   <div class="card-body">
-    <h5 class="card-title">{{ product.productName }}</h5>
-    <h2>₹{{ product.productPrice }}</h2>
+    <h5 class="card-title">{{ product?.productName }}</h5>
+    <h2>₹{{ product?.productPrice }}</h2>
     <p class="card-text">
-      {{ product.productDescription }}
+      {{ product?.productDescription }}
     </p>
   </div>
 </div>

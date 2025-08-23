@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { type Product } from '../../product/product.model';
 import { Item } from '../../product/item.model';
+import { ProductService } from '../../products.service';
 
 @Component({
   selector: 'app-favourite',
@@ -9,14 +10,33 @@ import { Item } from '../../product/item.model';
   styleUrl: './favourite.component.css',
 })
 export class FavouriteComponent {
-  @Input({ required: true }) favouriteProduct!: Item;
+  @Input({ required: true }) favouriteProductId!: string;
   @Output() showProductDetails = new EventEmitter<string>();
 
+  private productService = inject(ProductService);
+
+  productData!: any;
   // onRemoveFavourite() {
   //   this.favouriteProduct.isLiked = false;
   // }
 
-  onProductClick() {
-    this.showProductDetails.emit(this.favouriteProduct.productId);
+  ngOnInit() {
+    this.productService.getProductById(this.favouriteProductId).subscribe({
+      next: (res) => {
+        this.productData = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        // complete handler...
+      },
+    });
   }
+
+  getImageUrl(filename: string | undefined): string {
+    return this.productService.getImageUrl(filename);
+  }
+
+  onProductClick() {}
 }

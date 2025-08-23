@@ -16,7 +16,13 @@ export class ProductService {
     return this.http.get<Item[]>(`${this.baseUrl}/products/product`);
   }
 
-  getImageUrl(filename: string): string {
+  getProductById(productId: string) {
+    return this.http.get(`${this.baseUrl}/products/product`, {
+      params: { productId },
+    });
+  }
+
+  getImageUrl(filename: string | undefined): string {
     return `${this.baseUrl}/products/image/${filename}`;
   }
 

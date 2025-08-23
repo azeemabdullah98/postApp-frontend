@@ -7,10 +7,11 @@
     aria-label="Close"
     (click)="onCloseTask()"
   ></button>
-  <img [src]="getImageUrl(product!.imagePath)" class="card-img-detail" />
-  <h2>{{ product?.productName }}</h2>
+
+  <img [src]="getImageUrl(product[0]?.imagePath)" class="card-img-detail" />
+  <h2>{{ product[0]?.productName }}</h2>
   <form>
-    <h3>₹{{ product?.productPrice }}</h3>
+    <h3>₹{{ product[0]?.productPrice }}</h3>
     @if(this.currentUser !== null){
     <a style="border: none" (click)="onSelectFavourite()">
       <i
@@ -23,14 +24,16 @@
     }
 
     <p>
-      <label for="summary">{{ product?.productDescription }}</label>
+      <label for="summary">{{ product[0]?.productDescription }}</label>
     </p>
     <section class="btn-container">
       <a href="#" class="btn btn-warning">Buy now</a>
       <a href="#" class="btn btn-outline-dark me">Add to cart</a>
       @if(currentUser !== null && currentUser.user_roles.includes('ROLE_ADMIN'))
       {
-      <i class="material-icons delete-icon" (click)="openDeleteModal(product!)"
+      <i
+        class="material-icons delete-icon"
+        (click)="openDeleteModal(product[0])"
         >delete</i
       >
       }
@@ -57,7 +60,7 @@
       <div class="modal-body">
         <p>
           Are you sure you want to delete
-          <strong>{{ product?.productName }}</strong
+          <strong>{{ product[0]?.productName }}</strong
           >?
         </p>
       </div>

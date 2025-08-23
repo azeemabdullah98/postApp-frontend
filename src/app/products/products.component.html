@@ -1,13 +1,6 @@
+<app-header (search)="onSearch($event)" />
 <section class="products-container">
   @for (product of products; track product.productId){
-  <app-product [product]="product" (select)="onSelectProduct($event)" />
-  } @if(isProductSelected){
-  <app-product-summary
-    [product]="selectedProduct"
-    (closeTask)="onCancelTask()"
-    (deleteProduct)="onDeleteProduct($event)"
-  />
-  } @if(isAddProduct){
-  <app-new-product [products]="products" />
+  <app-product [product]="product"></app-product>
   }
 </section>

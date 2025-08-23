@@ -6,7 +6,6 @@ import { NewProductComponent } from './products/new-product/new-product.componen
 import { UserAccountComponent } from './auth/user-account/user-account.component';
 import { FavouritesComponent } from './products/favourites/favourites.component';
 import { ProductSummaryComponent } from './products/product-summary/product-summary.component';
-import { ProductComponent } from './products/product/product.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +36,10 @@ export const routes: Routes = [
   {
     path: 'favourites',
     component: FavouritesComponent,
+  },
+  {
+    path: 'products',
+    component: ProductsComponent,
   },
   {
     path: 'products/:id',

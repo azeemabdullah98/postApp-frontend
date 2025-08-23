@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { Item } from '../product/item.model';
 import { Router } from '@angular/router';
@@ -10,11 +10,20 @@ import { Router } from '@angular/router';
   styleUrl: './favourites.component.css',
 })
 export class FavouritesComponent {
-  productData: Item[] = [];
+  productData: any;
   isProductSelected = false;
   selectedProductId?: string;
 
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    const userProductData = JSON.parse(
+      localStorage.getItem('userProductData')!
+    );
+    if (userProductData) {
+      this.productData = userProductData;
+    }
+  }
 
   onCloseFavourites() {
     this.router.navigateByUrl('/');
@@ -29,9 +38,9 @@ export class FavouritesComponent {
     this.isProductSelected = !this.isProductSelected;
   }
 
-  get selectedProduct() {
-    return this.productData.find(
-      (product) => product.productId === this.selectedProductId
-    );
-  }
+  // get selectedProduct() {
+  //   return this.productData.find(
+  //     (product: any) => product?.id?.productId === this.selectedProductId
+  //   );
+  // }
 }

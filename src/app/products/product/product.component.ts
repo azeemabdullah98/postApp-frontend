@@ -10,17 +10,18 @@ import { Router } from '@angular/router';
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
-  @Input() product!: Item;
-  @Output() select = new EventEmitter<Item>();
+  @Input() product?: Item;
+  // @Output() select = new EventEmitter<string>();
 
   constructor(private productService: ProductService, private router: Router) {}
   onSelectProduct() {
-    console.log(this.product);
-    this.select.emit(this.product);
-    // this.router.navigate(['/products', this.product.productId]);
+    if (this.product?.productId) {
+      this.router.navigate(['/products', this.product.productId]);
+    }
+    // this.select.emit(this.product.productId);
   }
 
-  getImageUrl(filename: string): string {
+  getImageUrl(filename: string | undefined): string {
     return this.productService.getImageUrl(filename);
   }
 }

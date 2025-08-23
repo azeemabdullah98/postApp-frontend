@@ -4,7 +4,7 @@ import { Item } from '../product/item.model';
 import { ProductService } from '../products.service';
 import { AuthService } from '../../auth/auth.service';
 import { UserProductsService } from '../favourites/user-products.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-summary',
@@ -13,57 +13,65 @@ import { Router } from '@angular/router';
   styleUrl: './product-summary.component.css',
 })
 export class ProductSummaryComponent implements OnInit {
-  @Input({ required: true }) product?: Item;
-  @Output() deleteProduct = new EventEmitter<string>();
-  @Output() closeTask = new EventEmitter<void>();
+  // @Input({ required: true }) product?: any;
+  product?: any | null;
+  // @Output() deleteProduct = new EventEmitter<string>();
   showDeleteModal = false;
   favourites = false;
-  // userProducts: any;
+  // productId: string | null = null;
+  isDataLoaded: boolean = false;
 
   constructor(
     private productService: ProductService,
     private authService: AuthService,
     private userProductsService: UserProductsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.productService.getProductById(id).subscribe({
+          next: (product) => {
+            this.product = product;
+            this.getFavourites();
+          },
+          error: (error) => {
+            console.error('Error loading product:', error);
+          },
+        });
+      }
+    });
+
     if (localStorage.getItem('userProductData')) {
       this.userProductsService.setUserProduct(
         JSON.parse(localStorage.getItem('userProductData')!)
       );
     }
+
     this.getFavourites();
-    // console.log('favourites', this.favourites);
-    // console.log(this.userProductsService.getUserProduct());
-    // console.log(this.product);
   }
 
   onCloseTask() {
-    this.closeTask.emit();
-    // this.router.navigateByUrl('/home');
-  }
-
-  get imagePath() {
-    return this.product?.imagePath;
+    this.router.navigate(['/home']);
   }
 
   getFavourites() {
-    // console.log('user porduct is ', this.userProducts);
     this.favourites = this.userProductsService
       .getUserProduct()
       .some(
-        (userProduct) => userProduct.id.productId === this.product?.productId
+        (userProduct) => userProduct.id.productId === this.product[0]?.productId
       );
   }
 
-  getImageUrl(filename: string): string {
-    // console.log(this.productService.getImageUrl(filename));
+  getImageUrl(filename: string | undefined): string {
     return this.productService.getImageUrl(filename);
   }
 
   onDeleteProduct() {
-    this.deleteProduct.emit(this.product!.productId);
+    // this.deleteProduct.emit(this.product!.productId);
   }
 
   openDeleteModal(product: Item) {
@@ -80,10 +88,9 @@ export class ProductSummaryComponent implements OnInit {
   }
 
   onSelectFavourite() {
-    // console.log(this.favourites);
     this.favourites === true
       ? this.userProductsService
-          .removeUserProduct(this.currentUser.id, this.product!.productId)
+          .removeUserProduct(this.currentUser.id, this.product[0]!.productId)
           .subscribe({
             complete: () => {
               this.updateLocalStorage();
@@ -98,7 +105,7 @@ export class ProductSummaryComponent implements OnInit {
             },
           })
       : this.userProductsService
-          .addUserProduct(this.currentUser.id, this.product!.productId)
+          .addUserProduct(this.currentUser.id, this.product[0]!.productId)
           .subscribe({
             next: (response) => {
               console.log('Product added to favourites:', response);

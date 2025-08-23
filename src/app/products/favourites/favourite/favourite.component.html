@@ -1,17 +1,17 @@
 <a class="card">
   <img
     class="card-img-top"
-    [src]="favouriteProduct.imagePath"
+    [src]="getImageUrl(productData[0]?.imagePath)"
     alt="product-image"
     (click)="onProductClick()"
   />
   <div class="card-body">
     <h2 (click)="onProductClick()" class="card-title">
-      {{ favouriteProduct.productName }}
+      {{ productData[0]?.productName }}
     </h2>
-    <h4 (click)="onProductClick()">₹{{ favouriteProduct.productPrice }}</h4>
+    <h4 (click)="onProductClick()">₹{{ productData[0].productPrice }}</h4>
     <p class="card-text" (click)="onProductClick()">
-      {{ favouriteProduct.productDescription }}
+      {{ productData[0]?.productDescription }}
     </p>
     <!-- <a style="border: none" (click)="onRemoveFavourite()">
       <i class="del material-icons" style="font-size: 2rem; color: red"

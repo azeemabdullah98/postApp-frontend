@@ -12,8 +12,11 @@
   padding-right: 0.8rem;
 }
 
-.btn-favourite {
+.favourite {
   position: relative;
+}
+.material-icons {
+  cursor: pointer;
 }
 
 .favourite-count {

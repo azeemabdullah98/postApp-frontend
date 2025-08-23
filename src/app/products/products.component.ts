@@ -3,55 +3,58 @@ import { ProductComponent } from './product/product.component';
 import { ProductSummaryComponent } from './product-summary/product-summary.component';
 import { ProductService } from './products.service';
 import { Item } from './product/item.model';
-import { NewProductComponent } from './new-product/new-product.component';
+
+import { ActivatedRoute, Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 import { UserProductsService } from './favourites/user-products.service';
-import { AuthService } from '../auth/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
-  imports: [ProductComponent, ProductSummaryComponent, NewProductComponent],
+  imports: [ProductComponent, HeaderComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
 export class ProductsComponent implements OnInit {
-  @Input({ required: true }) isAddProduct!: boolean;
-  @Input({ required: true }) products?: Item[];
-  @Output() closeAddProduct = new EventEmitter<string>();
+  originalProducts: Item[] = [];
+  products?: Item[];
   isProductSelected = false;
-  selectedProduct?: Item;
+  selectedProduct?: Item[];
+  keyword: string | undefined = '';
   // products: Item[] = [];
 
-  constructor(
-    private authService: AuthService,
-    private productService: ProductService,
-    private userProductsService: UserProductsService,
-    private router: Router
-  ) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next: (response) => {
+        this.originalProducts = response; // save unfiltered products
         this.products = response;
-        // console.log(this.products);
       },
     });
   }
 
-  onSelectProduct(product: Item) {
-    this.selectedProduct = product;
-    this.isProductSelected = true;
-    // this.router.navigate(['/products', product.productId]);
+  onSearch(keyword: string) {
+    if (keyword !== '') {
+      this.products = this.originalProducts?.filter((product) => {
+        return (
+          product.productName.toLowerCase().includes(keyword.toLowerCase()) ||
+          product.productDescription
+            .toLowerCase()
+            .includes(keyword.toLowerCase())
+        );
+      });
+    } else {
+      this.products = this.originalProducts;
+    }
   }
 
   onCancelTask() {
-    this.isProductSelected = false;
     this.router.navigate(['/']);
   }
 
-  onCloseNewProduct(event: string) {
-    this.closeAddProduct.emit(event);
-  }
+  // onCloseNewProduct(event: string) {
+  //   this.closeAddProduct.emit(event);
+  // }
 
   // get selectedProduct() {
   //   return this.products?.find(
